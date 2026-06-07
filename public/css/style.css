@@ -84,6 +84,50 @@
   max-width: 800px;
 }
 
+.role-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* hidden by default */
+.role-tooltip {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 220px;
+
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid #ff4655;
+  color: white;
+
+  padding: 10px;
+  border-radius: 8px;
+
+  font-size: 12px;
+  text-align: center;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.2s ease;
+
+  z-index: 10;
+}
+
+/* show on hover */
+.role-wrapper:hover .role-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-5px);
+}
+
+.role-tooltip strong {
+  color: #ff4655;
+  display: block;
+  margin-bottom: 5px;
+}
+
 .role-all {
   width: 45px;
   height: 45px;

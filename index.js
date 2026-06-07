@@ -21,6 +21,7 @@ app.get("/agents", async (req, res) => {
         const agents = result.data.data.filter(
             (agent) => agent.isPlayableCharacter === true
         );
+
         res.render("agents.ejs", {
             agents
         })
