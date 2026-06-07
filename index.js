@@ -32,6 +32,21 @@ app.get("/agents", async (req, res) => {
 
 })
 
+app.get("/agents/:uuid", async (req, res) => {
+    try {
+        const { uuid } = req.params;
+        const result = await axios.get(API_URL + "agents/" + uuid);
+        const agent = result.data.data;
+
+        res.render("agent-details.ejs", {
+            agent
+        });
+    } catch (error) {
+        console.log(error.message);
+        res.status(404).send("Agent not found or API error");
+    }
+})
+
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 })

@@ -1,0 +1,149 @@
+<%- include('partials/header') %>
+
+<% 
+  // Dynamically build the CSS gradient based on backgroundGradientColors from API
+  let gradientString = 'linear-gradient(135deg, #1f2326, #0f1923)'; 
+  if (agent.backgroundGradientColors && agent.backgroundGradientColors.length > 0) {
+      const formattedColors = agent.backgroundGradientColors.map(c => '#' + c);
+      gradientString = `linear-gradient(135deg, ${formattedColors.join(', ')})`;
+  }
+
+  // Helper function to map slots to default keyboard key bindings
+  function getSlotKey(slotName) {
+      switch (slotName) {
+          case 'Ability1': return 'Q';
+          case 'Ability2': return 'E';
+          case 'Grenade': return 'C';
+          case 'Ultimate': return 'X';
+          case 'Passive': return 'PASSIVE';
+          default: return slotName;
+      }
+  }
+
+  // Filter out abilities that lack essential details
+  const activeAbilities = (agent.abilities || []).filter(ab => ab.displayName && ab.displayIcon);
+%>
+
+<div class="container my-5">
+    
+    <!-- Back Button -->
+    <div class="mb-4">
+        <a href="/agents" class="btn-valorant-back">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+            </svg>
+            <span>Back to Agents</span>
+        </a>
+    </div>
+
+    <!-- Main Agent Profile Section -->
+    <div class="row g-4 align-items-stretch">
+        
+        <!-- Left Column: Portrait & Backdrop -->
+        <div class="col-lg-5">
+            <div class="agent-hero-card" style="background: <%= gradientString %>;">
+                <% if (agent.background) { %>
+                    <img src="<%= agent.background %>" class="agent-hero-bg-pattern" alt="Background pattern">
+                <% } %>
+                <img src="<%= agent.fullPortrait || agent.bustPortrait || agent.displayIcon %>" class="agent-hero-portrait img-fluid" alt="<%= agent.displayName %>">
+            </div>
+        </div>
+
+        <!-- Right Column: Info, Role & Abilities -->
+        <div class="col-lg-7">
+            <div class="agent-details-content p-4 h-100 d-flex flex-column justify-content-between">
+                
+                <div>
+                    <!-- Agent Name -->
+                    <h1 class="agent-title text-uppercase mb-2"><%= agent.displayName %></h1>
+                    
+                    <!-- Role Info -->
+                    <% if (agent.role) { %>
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="role-badge d-flex align-items-center gap-2">
+                                <img src="<%= agent.role.displayIcon %>" alt="<%= agent.role.displayName %>" class="role-badge-icon">
+                                <span><%= agent.role.displayName %></span>
+                            </div>
+                            <span class="text-secondary">|</span>
+                            <span class="role-subtitle text-secondary"><%= agent.role.description %></span>
+                        </div>
+                    <% } %>
+
+                    <!-- Biography / Description -->
+                    <div class="agent-bio mb-5">
+                        <h5 class="text-danger text-uppercase fw-bold mb-2">Biography</h5>
+                        <p class="text-light fs-5 lead"><%= agent.description %></p>
+                    </div>
+                </div>
+
+                <!-- Interactive Abilities Section -->
+                <% if (activeAbilities.length > 0) { %>
+                    <div class="abilities-wrapper border-top border-secondary pt-4 mt-auto">
+                        <h5 class="text-danger text-uppercase fw-bold mb-3">Abilities</h5>
+                        
+                        <!-- Icons List -->
+                        <div class="d-flex gap-3 mb-4 flex-wrap">
+                            <% activeAbilities.forEach((ability, index) => { %>
+                                <button class="ability-btn <%= index === 0 ? 'active' : '' %>" 
+                                        data-ability-index="<%= index %>" 
+                                        title="<%= ability.displayName %>">
+                                    <span class="ability-key-badge"><%= getSlotKey(ability.slot) %></span>
+                                    <img src="<%= ability.displayIcon %>" alt="<%= ability.displayName %>" class="ability-btn-icon">
+                                </button>
+                            <% }) %>
+                        </div>
+
+                        <!-- Details Panel -->
+                        <div class="ability-details-pane bg-black bg-opacity-50 p-4 rounded-3 border border-secondary">
+                            <% activeAbilities.forEach((ability, index) => { %>
+                                <div class="ability-content <%= index === 0 ? 'd-block animate-fade-in' : 'd-none' %>" 
+                                     id="ability-pane-<%= index %>">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h4 class="text-white fw-bold mb-0 text-uppercase"><%= ability.displayName %></h4>
+                                        <span class="badge bg-secondary text-uppercase py-2 px-3"><%= getSlotKey(ability.slot) %></span>
+                                    </div>
+                                    <p class="text-secondary mb-0 mt-3 fs-6 lh-lg"><%= ability.description %></p>
+                                </div>
+                            <% }) %>
+                        </div>
+                    </div>
+                <% } %>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Interactive Switcher Script -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const abilityButtons = document.querySelectorAll(".ability-btn");
+        const abilityPanes = document.querySelectorAll(".ability-content");
+
+        abilityButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const targetIndex = btn.getAttribute("data-ability-index");
+
+                // Toggle active state on buttons
+                abilityButtons.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+
+                // Toggle visibility of detail panes
+                abilityPanes.forEach(pane => {
+                    pane.classList.add("d-none");
+                    pane.classList.remove("d-block", "animate-fade-in");
+                });
+
+                const targetPane = document.getElementById(`ability-pane-${targetIndex}`);
+                if (targetPane) {
+                    targetPane.classList.remove("d-none");
+                    targetPane.classList.add("d-block", "animate-fade-in");
+                }
+            });
+        });
+    });
+</script>
+
+<%- include('partials/footer') %>

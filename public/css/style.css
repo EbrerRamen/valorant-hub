@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+body {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
 .hero {
   min-height: 90vh;
   display: flex;
@@ -235,4 +241,423 @@
 
 footer {
   margin-top: auto;
+}
+
+/* Agent Details Page Styling */
+
+.btn-valorant-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 70, 85, 0.4);
+  padding: 10px 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.btn-valorant-back svg {
+  transition: transform 0.3s ease;
+}
+
+.btn-valorant-back:hover {
+  background: #ff4655;
+  color: #000;
+  border-color: #ff4655;
+  box-shadow: 0 0 15px rgba(255, 70, 85, 0.4);
+}
+
+.btn-valorant-back:hover svg {
+  transform: translateX(-4px);
+}
+
+.agent-hero-card {
+  position: relative;
+  height: 520px;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.agent-hero-bg-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.25;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: 1;
+}
+
+.agent-hero-portrait {
+  position: relative;
+  z-index: 2;
+  max-height: 95%;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.6));
+  transition: transform 0.4s ease;
+}
+
+.agent-hero-card:hover .agent-hero-portrait {
+  transform: translateY(-8px) scale(1.02);
+}
+
+.agent-details-content {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  height: 100%;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.agent-title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #fff;
+  text-shadow: 0 0 15px rgba(255, 70, 85, 0.15);
+}
+
+.role-badge {
+  background: #ff4655;
+  color: #000;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+.role-badge-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  filter: brightness(0);
+}
+
+.role-subtitle {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  max-width: 80%;
+}
+
+.agent-bio p {
+  color: #e0e0e0;
+  line-height: 1.6;
+}
+
+/* Ability Switcher styling */
+.ability-btn {
+  position: relative;
+  width: 65px;
+  height: 65px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ability-btn:hover {
+  background: rgba(255, 70, 85, 0.1);
+  border-color: #ff4655;
+  transform: translateY(-3px);
+}
+
+.ability-btn.active {
+  background: rgba(255, 70, 85, 0.2);
+  border-color: #ff4655;
+  box-shadow: 0 0 15px rgba(255, 70, 85, 0.3);
+}
+
+.ability-btn-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0.9);
+  transition: filter 0.2s;
+}
+
+.ability-btn:hover .ability-btn-icon,
+.ability-btn.active .ability-btn-icon {
+  filter: brightness(1);
+}
+
+.ability-key-badge {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  background: #ff4655;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.ability-details-pane {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Responsive tweaks */
+@media (max-width: 991px) {
+  .agent-hero-card {
+    height: 400px;
+  }
+  .agent-title {
+    font-size: 2.8rem;
+  }
+  .role-subtitle {
+    max-width: 100%;
+  }
+}
+
+/* Agent Listing Page Redesign Styling */
+
+.agents-header {
+  position: relative;
+}
+
+.agents-subtitle {
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  font-weight: 800;
+}
+
+.fw-black {
+  font-weight: 900;
+}
+
+.tracking-widest {
+  letter-spacing: 3px;
+}
+
+.fs-7 {
+  font-size: 0.75rem;
+}
+
+.agents-header-line {
+  width: 60px;
+  height: 4px;
+  background: #ff4655;
+  margin: 15px auto 25px auto;
+  border-radius: 2px;
+}
+
+.roles-console-wrapper {
+  perspective: 1000px;
+}
+
+.roles-console {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.role-filter-btn {
+  background: transparent;
+  border: none;
+  color: #888;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.role-filter-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.role-filter-btn.active {
+  background: #ff4655;
+  color: #000;
+  box-shadow: 0 0 15px rgba(255, 70, 85, 0.45);
+}
+
+.role-filter-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  filter: brightness(0.7);
+  transition: filter 0.25s ease;
+}
+
+.role-filter-btn:hover .role-filter-icon {
+  filter: brightness(1);
+}
+
+.role-filter-btn.active .role-filter-icon {
+  filter: brightness(0);
+}
+
+.agent-roster-card {
+  position: relative;
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.agent-roster-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255, 70, 85, 0.4);
+  box-shadow: 0 15px 35px rgba(255, 70, 85, 0.15);
+}
+
+.agent-card-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.agent-card-role {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 30px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  transition: all 0.3s ease;
+}
+
+.agent-card-role img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  filter: brightness(0.8);
+}
+
+.agent-roster-card:hover .agent-card-role {
+  border-color: #ff4655;
+  background: rgba(255, 70, 85, 0.2);
+}
+
+.agent-roster-card:hover .agent-card-role img {
+  filter: brightness(1);
+}
+
+.agent-card-bg-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.agent-roster-card:hover .agent-card-bg-pattern {
+  opacity: 0.15;
+}
+
+.agent-card-portrait-container {
+  position: relative;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  overflow: hidden;
+  padding-top: 20px;
+}
+
+.agent-card-portrait {
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.4));
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.agent-roster-card:hover .agent-card-portrait {
+  transform: translateY(-5px) scale(1.05);
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.5));
+}
+
+.agent-card-info {
+  position: relative;
+  z-index: 3;
+  background: rgba(10, 15, 20, 0.85);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.agent-roster-card:hover .agent-card-info {
+  background: rgba(20, 25, 30, 0.95);
+  border-top-color: rgba(255, 70, 85, 0.2);
+}
+
+.agent-card-name {
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+  font-weight: 800;
+}
+
+.agent-card-role-name {
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
 }
