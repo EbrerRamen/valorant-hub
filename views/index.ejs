@@ -1,19 +1,32 @@
 <%- include('partials/header') %>
 
-<div class="hero d-flex align-items-center justify-content-center text-center">
+<div class="hero">
 
-  <div class="overlay"></div>
+  <div class="hero-inner container">
 
-  <div class="content">
-    <h1 class="display-3 text-danger fw-bold">VALORANT HUB</h1>
+    <!-- LEFT SIDE -->
+    <div class="hero-text">
 
-    <p class="lead text-light mt-3">
-      <%= description %>
-    </p>
+      <h1 class="hero-title">
+        VALORANT <span>HUB</span>
+      </h1>
 
-    <a href="/agents" class="btn btn-danger btn-lg mt-4">
-      Explore Agents
-    </a>
+      <p class="hero-desc">
+        <%= description %>
+      </p>
+
+      <div class="hero-actions">
+        <a href="/agents" class="btn btn-danger btn-lg">
+          Explore Agents
+        </a>
+
+        <a href="/maps" class="btn btn-outline-light btn-lg ms-2">
+          View Maps
+        </a>
+      </div>
+
+    </div>
+
   </div>
 
 </div>

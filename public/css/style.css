@@ -1,10 +1,67 @@
 .hero {
-  height: 100vh;
-  width: 100%;
-  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
 
-  /* your background image */
+  /* background */
   background: url("/images/Valorant_CloseBeta_Final_design.jpg") no-repeat center center/cover;
+
+  position: relative;
+  padding: 60px 0;
+}
+
+/* dark + red gradient overlay (more modern than flat black) */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    90deg,
+    rgba(0,0,0,0.85) 30%,
+    rgba(255,70,85,0.15) 70%,
+    rgba(0,0,0,0.9) 100%
+  );
+}
+
+/* content wrapper */
+.hero-inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* LEFT TEXT BLOCK */
+.hero-text {
+  max-width: 600px;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: white;
+}
+
+.hero-title span {
+  color: #ff4655;
+}
+
+/* description */
+.hero-desc {
+  font-size: 1.2rem;
+  color: #d1d1d1;
+  margin-top: 15px;
+  line-height: 1.6;
+}
+
+/* buttons spacing */
+.hero-actions {
+  margin-top: 25px;
+}
+
+/* optional subtle glow */
+.hero-title {
+  text-shadow: 0 0 20px rgba(255, 70, 85, 0.4);
 }
 
 /* dark overlay for readability */
