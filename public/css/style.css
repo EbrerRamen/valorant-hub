@@ -84,6 +84,71 @@
   max-width: 800px;
 }
 
+.role-all {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #ff4655;
+  color: #ff4655;
+  font-weight: bold;
+  font-size: 12px;
+
+  border-radius: 8px;
+  cursor: pointer;
+
+  opacity: 0.8;
+  transition: 0.2s ease;
+}
+
+.role-all:hover {
+  background: #ff4655;
+  color: black;
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.role-filters {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.role-icon {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: 0.2s ease;
+}
+
+.role-icon:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.active-role {
+  opacity: 1 !important;
+  transform: scale(1.1);
+}
+
+.role-icon.active-role {
+  border-bottom: 2px solid #ff4655;
+  padding-bottom: 4px;
+}
+
+.role-all.active-role {
+  background: #ff4655;
+  color: black;
+  opacity: 1;
+}
+
+
 .agent-card {
   padding: 10px;
   border-radius: 12px;

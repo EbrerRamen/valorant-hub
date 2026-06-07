@@ -1,35 +1,84 @@
 <%- include('partials/header') %>
 
-<div class="container mt-4">
+    <div class="container mt-4">
 
-  <h1 class="text-center text-danger mb-4">Agents</h1>
+        <h1 class="text-center text-danger mb-4">Agents</h1>
 
-  <div class="row">
+        <div class="container mb-4 text-center">
 
-    <% agents.forEach(agent => { %>
+            <div class="role-filters">
 
-      <div class="col-6 col-md-4 col-lg-3 mb-4">
+                <!-- ALL -->
+                <div class="role-icon role-all active-role" data-role="all">
+                    ALL
+                </div>
 
-        <div class="agent-card text-center">
+                <!-- Dynamically from agents -->
+                <% const rolesMap=new Map(); agents.forEach(a=> {
+                    if (a.role && !rolesMap.has(a.role.displayName)) {
+                    rolesMap.set(a.role.displayName, a.role.displayIcon);
+                    }
+                    });
+                    %>
 
-          <img 
-            src="<%= agent.fullPortrait || agent.displayIcon %>" 
-            alt="<%= agent.displayName %>"
-            class="agent-portrait"
-          >
+                    <% for (let [name, icon] of rolesMap) { %>
+                        <img src="<%= icon %>" class="role-icon" data-role="<%= name %>" title="<%= name %>" />
+                        <% } %>
 
-          <p class="mt-2 text-white fw-bold">
-            <%= agent.displayName %>
-          </p>
+            </div>
+
+        </div>
+        <div class="row">
+
+            <% agents.forEach(agent=> { %>
+
+                <div class="col-6 col-md-4 col-lg-3 mb-4">
+
+                    <div class="agent-card text-center" data-role="<%= agent.role?.displayName %>">
+
+                        <img src="<%= agent.fullPortrait || agent.displayIcon %>" alt="<%= agent.displayName %>"
+                            class="agent-portrait">
+
+                        <p class="mt-2 text-white fw-bold">
+                            <%= agent.displayName %>
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <% }) %>
 
         </div>
 
-      </div>
+    </div>
 
-    <% }) %>
+    <script>
+        const roleIcons = document.querySelectorAll(".role-icon");
+        const cards = document.querySelectorAll(".agent-card");
 
-  </div>
+        roleIcons.forEach(icon => {
+            icon.addEventListener("click", () => {
 
-</div>
+                const role = icon.getAttribute("data-role");
 
-<%- include('partials/footer') %>
+                // active state UI
+                roleIcons.forEach(i => i.classList.remove("active-role"));
+                icon.classList.add("active-role");
+
+                // filter logic
+                cards.forEach(card => {
+                    const cardRole = card.getAttribute("data-role");
+
+                    if (role === "all" || cardRole === role) {
+                        card.parentElement.style.display = "block";
+                    } else {
+                        card.parentElement.style.display = "none";
+                    }
+                });
+
+            });
+        });
+    </script>
+
+    <%- include('partials/footer') %>
