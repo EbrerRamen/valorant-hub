@@ -728,49 +728,70 @@ body {
   color: white;
 }
 
+/* WEAPON CARD (matches agent vibe) */
 .weapon-card {
-  background: #0f1923;
   border-radius: 12px;
   overflow: hidden;
-  transition: 0.3s;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.06));
+  transition: 0.25s ease;
+  position: relative;
 }
 
 .weapon-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  box-shadow: 0 0 20px rgba(255, 70, 85, 0.25);
 }
 
-.weapon-img {
-  width: 100%;
-  padding: 20px;
-  background: radial-gradient(circle, #1f2731, #0f1923);
+/* inner structure */
+.weapon-card-inner {
+  position: relative;
+  height: 100%;
 }
 
-.weapon-content {
-  padding: 15px;
-}
-
+/* CATEGORY BADGE (like role icon) */
 .weapon-category {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+
+  background: rgba(0,0,0,0.7);
+  border: 1px solid #ff4655;
   color: #ff4655;
-  font-size: 0.8rem;
+
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  z-index: 2;
+}
+
+/* IMAGE */
+.weapon-img-container {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.weapon-img-container img {
+  max-width: 100%;
+  max-height: 140px;
+  object-fit: contain;
+  transition: 0.3s ease;
+}
+
+.weapon-card:hover img {
+  transform: scale(1.1);
+}
+
+/* INFO */
+.weapon-info h4 {
+  font-size: 16px;
   text-transform: uppercase;
 }
 
-.weapon-cost {
-  font-weight: bold;
-}
-
-.weapon-stats {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.weapon-damage {
-  margin-top: 8px;
-  display: flex;
-  gap: 10px;
-  font-size: 0.75rem;
-  opacity: 0.8;
+.weapon-info span {
+  font-size: 14px;
 }
 
 .footer-link {

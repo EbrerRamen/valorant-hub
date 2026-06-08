@@ -1,46 +1,67 @@
 <%- include('partials/header') %>
 
-<div class="weapons-grid">
-  <% weapons.forEach(weapon => { %>
-    <div class="weapon-card">
+<div class="container my-5">
 
-      <!-- Image -->
-      <img src="<%= weapon.displayIcon %>" class="weapon-img" />
-
-      <div class="weapon-content">
-
-        <!-- Name -->
-        <h3><%= weapon.displayName %></h3>
-
-        <!-- Category -->
-        <p class="weapon-category">
-          <%= weapon.shopData?.categoryText %>
+    <!-- Header -->
+    <div class="text-center mb-5 agents-header">
+        <span class="agents-subtitle text-uppercase text-danger fw-bold">
+            Arsenal
+        </span>
+        <h1 class="text-white text-uppercase display-4 fw-black mt-2">
+            Valorant Weapons
+        </h1>
+        <div class="agents-header-line"></div>
+        <p class="text-secondary col-md-8 mx-auto mt-3 fs-5">
+            Choose your weapon. Compare cost, category, and find your perfect loadout.
         </p>
+    </div>
 
-        <!-- Cost -->
-        <p class="weapon-cost">
-          💰 <%= weapon.shopData?.cost %>
-        </p>
+    <!-- Weapons Grid -->
+    <div class="row g-4 justify-content-center">
 
-        <!-- Stats -->
-        <div class="weapon-stats">
-          <span>🔥 <%= weapon.weaponStats.fireRate %></span>
-          <span>🎯 <%= weapon.weaponStats.firstBulletAccuracy %></span>
-          <span>🔫 <%= weapon.weaponStats.magazineSize %></span>
-        </div>
+        <% weapons.forEach(weapon => { %>
 
-        <!-- Damage -->
-        <% const dmg = weapon.weaponStats.damageRanges[0]; %>
-        <div class="weapon-damage">
-          <small>HEAD: <%= dmg.headDamage %></small>
-          <small>BODY: <%= dmg.bodyDamage %></small>
-          <small>LEG: <%= dmg.legDamage %></small>
-        </div>
+            <div class="col-6 col-md-4 col-lg-3 d-flex">
 
-      </div>
+                <div class="weapon-card w-100">
+
+                    <div class="weapon-card-inner">
+
+                        <!-- Category Badge -->
+                        <% if (weapon.shopData) { %>
+                            <div class="weapon-category">
+                                <%= weapon.shopData.categoryText %>
+                            </div>
+                        <% } %>
+
+                        <!-- Weapon Image -->
+                        <div class="weapon-img-container">
+                            <img src="<%= weapon.displayIcon %>" alt="<%= weapon.displayName %>">
+                        </div>
+
+                        <!-- Info -->
+                        <div class="weapon-info text-center p-3">
+                            <h4 class="text-white fw-bold m-0">
+                                <%= weapon.displayName %>
+                            </h4>
+
+                            <% if (weapon.shopData) { %>
+                                <span class="text-danger fw-semibold">
+                                    <%= weapon.shopData.cost %> credits
+                                </span>
+                            <% } %>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        <% }) %>
 
     </div>
-  <% }) %>
+
 </div>
 
 <%- include('partials/footer') %>
