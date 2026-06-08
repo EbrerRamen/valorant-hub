@@ -1,120 +1,131 @@
 <%- include('partials/header') %>
 
-<div class="container my-5">
+    <div class="container my-5">
 
-    <!-- Header Section -->
-    <div class="text-center mb-5 agents-header">
-        <span class="agents-subtitle text-uppercase text-danger tracking-widest fw-bold">Select an Agent</span>
-        <h1 class="text-white text-uppercase display-4 fw-black mt-2">Valorant Roster</h1>
-        <div class="agents-header-line"></div>
-        <p class="text-secondary col-md-8 mx-auto mt-3 fs-5">
-            Explore the active roster of elite agents. Filter by role to find the perfect match for your playstyle.
-        </p>
-    </div>
-
-    <!-- Filter Console Section -->
-    <div class="roles-console-wrapper mb-5 text-center">
-        <div class="roles-console d-inline-flex align-items-center gap-2 p-2">
-            <!-- ALL button -->
-            <button class="role-filter-btn active" data-role="all">
-                <span>ALL</span>
-            </button>
-            
-            <!-- Dynamic Role buttons -->
-            <% const rolesMap = new Map(); 
-               agents.forEach(a => {
-                   if (a.role && !rolesMap.has(a.role.displayName)) {
-                       rolesMap.set(a.role.displayName, a.role.displayIcon);
-                   }
-               });
-            %>
-            <% for (let [name, icon] of rolesMap) { %>
-                <button class="role-filter-btn" data-role="<%= name %>">
-                    <img src="<%= icon %>" alt="<%= name %>" class="role-filter-icon">
-                    <span class="d-none d-sm-inline ms-1"><%= name %></span>
-                </button>
-            <% } %>
+        <!-- Header Section -->
+        <div class="text-center mb-5 agents-header">
+            <span class="agents-subtitle text-uppercase text-danger tracking-widest fw-bold">Select an Agent</span>
+            <h1 class="text-white text-uppercase display-4 fw-black mt-2">Valorant Roster</h1>
+            <div class="agents-header-line"></div>
+            <p class="text-secondary col-md-8 mx-auto mt-3 fs-5">
+                Explore the active roster of elite agents. Filter by role to find the perfect match for your playstyle.
+            </p>
         </div>
-    </div>
 
-    <!-- Roster Grid -->
-    <div class="row g-4 justify-content-center">
-        <% agents.forEach(agent => { 
-            let cardGradient = 'linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.05) 100%)';
-            if (agent.backgroundGradientColors && agent.backgroundGradientColors.length > 0) {
+        <!-- Filter Console Section -->
+        <div class="roles-console-wrapper mb-5 text-center">
+            <div class="roles-console d-inline-flex align-items-center gap-2 p-2">
+                <!-- ALL button -->
+                <button class="role-filter-btn active" data-role="all">
+                    <span>ALL</span>
+                </button>
+
+                <!-- Dynamic Role buttons -->
+                <% const rolesMap=new Map(); agents.forEach(a=> {
+                    if (a.role && !rolesMap.has(a.role.displayName)) {
+                    rolesMap.set(a.role.displayName, a.role.displayIcon);
+                    }
+                    });
+                    %>
+                    <% for (let [name, icon] of rolesMap) { %>
+                        <button class="role-filter-btn" data-role="<%= name %>">
+                            <img src="<%= icon %>" alt="<%= name %>" class="role-filter-icon">
+                            <span class="d-none d-sm-inline ms-1">
+                                <%= name %>
+                            </span>
+                        </button>
+                        <% } %>
+            </div>
+        </div>
+
+        <!-- Roster Grid -->
+        <div class="row g-4 justify-content-center">
+            <% agents.forEach(agent=> {
+                let cardGradient = 'linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.05) 100%)';
+                if (agent.backgroundGradientColors && agent.backgroundGradientColors.length > 0) {
                 // Generate a transparent theme glow based on agent gradient colors (using 10% opacity: 1a)
                 const formattedColors = agent.backgroundGradientColors.map(c => '#' + c.substring(0,6) + '1a');
                 cardGradient = `linear-gradient(135deg, ${formattedColors.join(', ')})`;
-            }
-        %>
-            <div class="col-6 col-md-4 col-lg-3 d-flex justify-content-stretch agent-grid-col">
-                
-                <div class="agent-roster-card" data-role="<%= agent.role?.displayName %>" style="background: <%= cardGradient %>;">
-                    <a href="/agents/<%= agent.uuid %>" class="agent-card-link text-decoration-none">
-                        
-                        <!-- Floating Role badge inside card -->
-                        <% if (agent.role) { %>
-                            <div class="agent-card-role" title="<%= agent.role.displayName %>">
-                                <img src="<%= agent.role.displayIcon %>" alt="<%= agent.role.displayName %>">
-                            </div>
-                        <% } %>
+                }
+                %>
+                <div class="col-6 col-md-4 col-lg-3 d-flex justify-content-stretch agent-grid-col">
 
-                        <!-- Backdrop pattern texture -->
-                        <% if (agent.background) { %>
-                            <img src="<%= agent.background %>" class="agent-card-bg-pattern" alt="">
-                        <% } %>
+                    <div class="agent-roster-card" data-role="<%= agent.role ? agent.role.displayName : 'unknown' %>"
+                        style="background: <%= cardGradient %>;">
+                        <a href="/agents/<%= agent.uuid %>" class="agent-card-link text-decoration-none">
 
-                        <!-- Portrait container -->
-                        <div class="agent-card-portrait-container">
-                            <img src="<%= agent.fullPortrait || agent.displayIcon %>" alt="<%= agent.displayName %>" class="agent-card-portrait">
-                        </div>
-
-                        <!-- Card Footer -->
-                        <div class="agent-card-info p-3 text-center">
-                            <h4 class="agent-card-name text-white text-uppercase fw-bold m-0"><%= agent.displayName %></h4>
+                            <!-- Floating Role badge inside card -->
                             <% if (agent.role) { %>
-                                <span class="agent-card-role-name text-danger text-uppercase tracking-wider fs-7 fw-semibold"><%= agent.role.displayName %></span>
-                            <% } %>
-                        </div>
-                    </a>
-                </div>
+                                <div class="agent-card-role" title="<%= agent.role.displayName %>">
+                                    <img src="<%= agent.role.displayIcon %>" alt="<%= agent.role.displayName %>">
+                                </div>
+                                <% } %>
 
-            </div>
-        <% }) %>
+                                    <!-- Backdrop pattern texture -->
+                                    <% if (agent.background) { %>
+                                        <img src="<%= agent.background %>" class="agent-card-bg-pattern" alt="">
+                                        <% } %>
+
+                                            <!-- Portrait container -->
+                                            <div class="agent-card-portrait-container">
+                                                <img src="<%= agent.fullPortrait || agent.displayIcon %>"
+                                                    alt="<%= agent.displayName %>" class="agent-card-portrait">
+                                            </div>
+
+                                            <!-- Card Footer -->
+                                            <div class="agent-card-info p-3 text-center">
+                                                <h4 class="agent-card-name text-white text-uppercase fw-bold m-0">
+                                                    <%= agent.displayName %>
+                                                </h4>
+                                                <% if (agent.role) { %>
+                                                    <span
+                                                        class="agent-card-role-name text-danger text-uppercase tracking-wider fs-7 fw-semibold">
+                                                        <%= agent.role.displayName %>
+                                                    </span>
+                                                    <% } %>
+                                            </div>
+                        </a>
+                    </div>
+
+                </div>
+                <% }) %>
+        </div>
+
     </div>
 
-</div>
+    <!-- Filters Switcher JS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const filterBtns = document.querySelectorAll(".role-filter-btn");
+            const cards = document.querySelectorAll(".agent-roster-card");
 
-<!-- Filters Switcher JS -->
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const filterBtns = document.querySelectorAll(".role-filter-btn");
-        const cards = document.querySelectorAll(".agent-roster-card");
+            filterBtns.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const role = btn.getAttribute("data-role").trim().toLowerCase();
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener("click", () => {
-                const role = btn.getAttribute("data-role");
+                    console.log("Filtering:", role); // debug
 
-                // Toggle active filter button style
-                filterBtns.forEach(b => b.classList.remove("active"));
-                btn.classList.add("active");
+                    // Active UI
+                    filterBtns.forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
 
-                // Filter grid cards
-                cards.forEach(card => {
-                    const cardRole = card.getAttribute("data-role");
-                    const column = card.closest(".agent-grid-col");
+                    cards.forEach(card => {
+                        const cardRole = (card.getAttribute("data-role") || "")
+                            .trim()
+                            .toLowerCase();
 
-                    if (role === "all" || cardRole === role) {
-                        column.style.display = "flex";
-                        column.classList.add("animate-fade-in");
-                    } else {
-                        column.style.display = "none";
-                        column.classList.remove("animate-fade-in");
-                    }
+                        const column = card.closest(".agent-grid-col");
+                        if (!column) return;
+
+                        if (role === "all" || cardRole === role) {
+                            column.style.setProperty("display", "flex", "important");
+                        } else {
+                            column.style.setProperty("display", "none", "important");
+                        }
+                    });
                 });
             });
         });
-    });
-</script>
+    </script>
 
-<%- include('partials/footer') %>
+    <%- include('partials/footer') %>
