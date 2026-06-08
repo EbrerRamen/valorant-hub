@@ -64,6 +64,22 @@ app.get("/gamemodes", async (req, res) => {
     }
 });
 
+app.get("/maps", async (req, res) => {
+    try {
+        const result = await axios.get(API_URL + "maps");
+
+        const maps = result.data.data;
+
+        res.render("maps.ejs", {
+            maps
+        });
+
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send("Error loading gamemodes");
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 })

@@ -1,3 +1,63 @@
 <%- include('partials/header') %>
 
+<div class="container my-5">
+
+    <!-- Header -->
+    <div class="text-center mb-5">
+        <h1 class="text-white fw-black text-uppercase display-5">
+            Valorant Maps
+        </h1>
+        <p class="text-secondary">
+            Explore all tactical battlegrounds in Valorant
+        </p>
+    </div>
+
+    <!-- Maps Grid -->
+    <div class="row g-4 justify-content-center">
+
+        <% maps.forEach(map => { %>
+
+            <div class="col-12 col-md-6 col-lg-4 d-flex">
+
+                <div class="map-card w-100">
+
+                    <!-- Splash Image -->
+                    <% if (map.splash) { %>
+                        <img src="<%= map.splash %>" class="map-card-img">
+                    <% } %>
+
+                    <!-- Overlay -->
+                    <div class="map-card-overlay"></div>
+
+                    <!-- Content -->
+                    <div class="map-card-content">
+
+                        <h3 class="text-uppercase fw-bold">
+                            <%= map.displayName %>
+                        </h3>
+
+                        <% if (map.tacticalDescription) { %>
+                            <p class="text-secondary mb-1">
+                                <%= map.tacticalDescription %>
+                            </p>
+                        <% } %>
+
+                        <% if (map.coordinates) { %>
+                            <small class="text-muted">
+                                <%= map.coordinates %>
+                            </small>
+                        <% } %>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        <% }) %>
+
+    </div>
+
+</div>
+
 <%- include('partials/footer') %>
