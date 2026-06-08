@@ -1,4 +1,4 @@
-# 🎯 Valorant Hub [Live Demo](https://valorant-hub-production.up.railway.app/)
+# 🎯 Valorant Hub ([Live Demo](https://valorant-hub-production.up.railway.app/))
 
 Valorant Hub is a web application that allows users to explore detailed information about **Valorant Agents, Gamemodes, Maps, and Weapons** through a clean and interactive interface. Built using **Node.js, Express, EJS, and Axios**, the project delivers structured Valorant game data in a user-friendly UI.
 
