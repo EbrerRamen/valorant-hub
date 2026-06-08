@@ -71,19 +71,19 @@ All game data is fetched from the non-official API:
 
 ## 📁 Project Structure
 
-valorant-hub/
-│
-├── public/ # Static assets (CSS, images)
-├── views/ # EJS templates
-│ ├── partials/
-│ ├── agents.ejs
-│ ├── agent-details.ejs
-│ ├── gamemodes.ejs
-│ ├── maps.ejs
-│ └── weapons.ejs
-├── index.js # Main server file
-├── package.json
-└── README.md
+valorant-hub/  
+│  
+├── public/ # Static assets (CSS, images)  
+├── views/ # EJS templates  
+│ ├── partials/  
+│ ├── agents.ejs  
+│ ├── agent-details.ejs  
+│ ├── gamemodes.ejs  
+│ ├── maps.ejs  
+│ └── weapons.ejs  
+├── index.js # Main server file  
+├── package.json  
+└── README.md  
 
 ---
 
@@ -117,13 +117,13 @@ http://localhost:3000
 
 ---
 
-##🌐 Deployment
+## 🌐 Deployment
 
 This project is deployed using Railway. Visit [Project Demo](https://valorant-hub-production.up.railway.app/)
 
 ---
 
-##👨‍💻 Author
+## 👨‍💻 Author
 
 Developed by Md. Abrar Rahman Shafin
 A Valorant fan project built for learning full-stack web development.
