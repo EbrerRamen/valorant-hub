@@ -7,6 +7,17 @@ All game data is fetched from the non-official API:
 
 ---
 
+## 📸 Screenshots
+
+![Home Screen](https://imgur.com/VzoiSOc)
+![Agents](https://imgur.com/0OU0zDx)
+![Agent Details](https://imgur.com/gfbHJOe)
+![Game Modes](https://imgur.com/6qjKxgE)
+![Maps](https://imgur.com/23pFqbh)
+![Weapons](https://imgur.com/4k7kaZU)
+
+---
+
 ## 🚀 Features
 
 ### 🧑‍🎤 Agents Explorer
