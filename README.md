@@ -100,11 +100,6 @@ cd valorant-hub
 npm install
 ```
 
-### 2️⃣ Install dependencies
-```bash
-npm install
-```
-
 ### 3️⃣ Run the project
 ```bash
 node index.js
