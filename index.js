@@ -54,6 +54,10 @@ app.get("/gamemodes", async (req, res) => {
         const gamemodes = result.data.data
             .filter(mode => mode.description && mode.displayIcon);
 
+        gamemodes.sort((a, b) => {
+            return (b.duration ? 1 : 0) - (a.duration ? 1 : 0);
+        });
+
         res.render("gamemodes.ejs", {
             gamemodes
         });
@@ -65,33 +69,50 @@ app.get("/gamemodes", async (req, res) => {
 });
 
 app.get("/maps", async (req, res) => {
-  try {
-    const result = await axios.get(API_URL + "maps");
+    try {
+        const result = await axios.get(API_URL + "maps");
 
-    let maps = result.data.data;
+        let maps = result.data.data;
 
-    const featuredMaps = maps.filter(
-      map => map.tacticalDescription
-    );
+        const featuredMaps = maps.filter(
+            map => map.tacticalDescription
+        );
 
-    const excluded = ["The Range", "Basic Training"];
+        const excluded = ["The Range", "Basic Training"];
 
-    const otherMaps = maps.filter(
-      map =>
-        !map.tacticalDescription &&
-        !excluded.includes(map.displayName)
-    );
+        const otherMaps = maps.filter(
+            map =>
+                !map.tacticalDescription &&
+                !excluded.includes(map.displayName)
+        );
 
-    res.render("maps.ejs", {
-      featuredMaps,
-      otherMaps
-    });
+        res.render("maps.ejs", {
+            featuredMaps,
+            otherMaps
+        });
 
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Error loading maps");
-  }
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send("Error loading maps");
+    }
 });
+
+app.get("/weapons", async (req, res) => {
+    try {
+        const result = await axios.get(API_URL + "weapons");
+        const weapons = result.data.data.filter(
+            w => w.weaponStats && w.displayIcon
+        );
+        res.render("weapons.ejs", {
+            weapons
+        })
+    } catch (error) {
+        console.log(error.message);
+        res.send("Error loading agents");
+    }
+
+})
+
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);

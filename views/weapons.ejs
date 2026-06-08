@@ -1,3 +1,46 @@
 <%- include('partials/header') %>
 
+<div class="weapons-grid">
+  <% weapons.forEach(weapon => { %>
+    <div class="weapon-card">
+
+      <!-- Image -->
+      <img src="<%= weapon.displayIcon %>" class="weapon-img" />
+
+      <div class="weapon-content">
+
+        <!-- Name -->
+        <h3><%= weapon.displayName %></h3>
+
+        <!-- Category -->
+        <p class="weapon-category">
+          <%= weapon.shopData?.categoryText %>
+        </p>
+
+        <!-- Cost -->
+        <p class="weapon-cost">
+          💰 <%= weapon.shopData?.cost %>
+        </p>
+
+        <!-- Stats -->
+        <div class="weapon-stats">
+          <span>🔥 <%= weapon.weaponStats.fireRate %></span>
+          <span>🎯 <%= weapon.weaponStats.firstBulletAccuracy %></span>
+          <span>🔫 <%= weapon.weaponStats.magazineSize %></span>
+        </div>
+
+        <!-- Damage -->
+        <% const dmg = weapon.weaponStats.damageRanges[0]; %>
+        <div class="weapon-damage">
+          <small>HEAD: <%= dmg.headDamage %></small>
+          <small>BODY: <%= dmg.bodyDamage %></small>
+          <small>LEG: <%= dmg.legDamage %></small>
+        </div>
+
+      </div>
+
+    </div>
+  <% }) %>
+</div>
+
 <%- include('partials/footer') %>

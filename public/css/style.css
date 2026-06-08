@@ -728,6 +728,51 @@ body {
   color: white;
 }
 
+.weapon-card {
+  background: #0f1923;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.weapon-card:hover {
+  transform: translateY(-5px);
+}
+
+.weapon-img {
+  width: 100%;
+  padding: 20px;
+  background: radial-gradient(circle, #1f2731, #0f1923);
+}
+
+.weapon-content {
+  padding: 15px;
+}
+
+.weapon-category {
+  color: #ff4655;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.weapon-cost {
+  font-weight: bold;
+}
+
+.weapon-stats {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.weapon-damage {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
 .footer-link {
   color: #aaa;
   text-decoration: none;
