@@ -65,19 +65,32 @@ app.get("/gamemodes", async (req, res) => {
 });
 
 app.get("/maps", async (req, res) => {
-    try {
-        const result = await axios.get(API_URL + "maps");
+  try {
+    const result = await axios.get(API_URL + "maps");
 
-        const maps = result.data.data;
+    let maps = result.data.data;
 
-        res.render("maps.ejs", {
-            maps
-        });
+    const featuredMaps = maps.filter(
+      map => map.tacticalDescription
+    );
 
-    } catch (err) {
-        console.log(err.message);
-        res.status(500).send("Error loading gamemodes");
-    }
+    const excluded = ["The Range", "Basic Training"];
+
+    const otherMaps = maps.filter(
+      map =>
+        !map.tacticalDescription &&
+        !excluded.includes(map.displayName)
+    );
+
+    res.render("maps.ejs", {
+      featuredMaps,
+      otherMaps
+    });
+
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Error loading maps");
+  }
 });
 
 app.listen(port, () => {
