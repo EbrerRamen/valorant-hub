@@ -15,6 +15,30 @@
         </p>
     </div>
 
+<div class="sort-bar d-flex justify-content-between align-items-center flex-wrap mb-4 px-2">
+
+    <!-- Left: Label -->
+    <div class="mb-2 mb-md-0">
+        <span class="text-secondary fw-semibold">
+            Sort by price:
+        </span>
+    </div>
+
+    <!-- Right: Buttons -->
+    <div class="btn-group">
+        <a href="/weapons?sort=low"
+           class="btn <%= sortType === 'low' ? 'btn-danger' : 'btn-outline-danger' %>">
+            Low → High
+        </a>
+
+        <a href="/weapons?sort=high"
+           class="btn <%= sortType === 'high' ? 'btn-danger' : 'btn-outline-danger' %>">
+            High → Low
+        </a>
+    </div>
+
+</div>
+
     <div class="row g-4 justify-content-center">
 
         <% weapons.forEach(weapon => { %>
