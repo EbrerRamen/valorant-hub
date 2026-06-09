@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 
+/* Valorant Color Palette Variables */
+:root {
+  --valo-red: #ff4655;
+  --valo-dark: #0f1923;
+  --valo-light: #ece8e1;
+  --valo-grey: #8b978f;
+}
+
 body {
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
@@ -645,41 +653,98 @@ body {
   letter-spacing: 1.5px;
 }
 
+/* GAMEMODE CARD */
 .gamemode-card {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 14px;
-  overflow: hidden;
-  transition: 0.25s ease;
+  background: var(--valo-dark);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .gamemode-card:hover {
-  transform: translateY(-6px);
-  border-color: #ff4655;
-  box-shadow: 0 10px 25px rgba(255,70,85,0.15);
+  transform: translateY(-8px);
+  border-color: var(--valo-red);
+  box-shadow: 0 15px 30px rgba(255, 70, 85, 0.15);
+}
+
+/* Red accent line on hover */
+.gamemode-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background-color: var(--valo-red);
+  transition: width 0.3s ease;
+}
+
+.gamemode-card:hover::after {
+  width: 100%;
+}
+
+/* Removed padding so the image sits perfectly flush */
+.gamemode-img-container {
+  /* Removed the fixed height (320px) so the box can stretch naturally */
+  width: 100%;
+  display: flex;
+  padding: 0; /* Keeps it flush */
+  background: var(--valo-dark);
+  border-bottom: 2px solid rgba(255, 70, 85, 0.3);
+  overflow: hidden;
 }
 
 .gamemode-img {
   width: 100%;
-  height: 180px;
-  object-fit: cover;
-  background: #000;
+  height: auto; /* Allows the image to scale down proportionally without cropping/zooming */
+  display: block; 
+  transition: filter 0.4s ease;
+  filter: brightness(0.85);
+}
+
+/* Hover State */
+.gamemode-card:hover .gamemode-img {
+  filter: brightness(1.1); 
+}
+
+/* CONTENT & TEXT */
+.gamemode-content {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.2) 100%);
 }
 
 .gamemode-content h4 {
-  font-size: 1.1rem;
-  letter-spacing: 1px;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  color: var(--valo-light);
 }
 
+.gamemode-content p {
+  flex-grow: 1; /* Forces the badge to the bottom if descriptions vary in length */
+  color: var(--valo-grey);
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* STYLIZED BADGE */
 .gamemode-badge {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 4px 10px;
-  font-size: 12px;
-  background: rgba(255,70,85,0.2);
-  color: #ff4655;
-  border-radius: 6px;
+  align-self: flex-start; /* Keeps the badge from stretching full width */
+  background: rgba(15, 25, 35, 0.85);
+  border-left: 3px solid var(--valo-red);
+  color: var(--valo-light);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 6px 12px;
+  margin-top: 15px;
 }
 
 .map-card {
@@ -726,14 +791,6 @@ body {
   left: 15px;
   right: 15px;
   color: white;
-}
-
-/* Valorant Color Palette Variables */
-:root {
-  --valo-red: #ff4655;
-  --valo-dark: #0f1923;
-  --valo-light: #ece8e1;
-  --valo-grey: #8b978f;
 }
 
 /* WEAPON CARD */
