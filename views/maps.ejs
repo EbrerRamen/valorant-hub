@@ -2,101 +2,87 @@
 
 <div class="container my-5">
 
-    <!-- Header -->
-    <div class="text-center mb-5">
-        <h1 class="text-white fw-black text-uppercase display-5">
+    <div class="text-center mb-5 agents-header">
+        <span class="agents-subtitle text-uppercase fw-bold" style="color: #ff4655; letter-spacing: 2px;">
+            Battlezones
+        </span>
+        <h1 class="text-white text-uppercase display-4 mt-2" style="font-weight: 900; letter-spacing: 1px;">
             Maps
         </h1>
-        <p class="text-secondary">
-            Featured competitive maps + full map collection
+        <div class="agents-header-line mx-auto my-3" style="width: 60px; height: 3px; background-color: #ff4655;"></div>
+        <p class="text-secondary col-md-8 mx-auto mt-3 fs-5">
+            Featured competitive arenas + full map collection
         </p>
     </div>
 
-    <!-- 🔥 Featured Maps -->
-    <h3 class="text-white mb-3">Featured Maps</h3>
+    <div class="mb-4">
+        <h3 class="section-title-valo text-white">Featured Maps</h3>
+    </div>
 
     <div class="row g-4 mb-5">
-
         <% featuredMaps.forEach(map => { %>
             <div class="col-12 col-md-6 col-lg-4 d-flex">
-
                 <div class="map-card w-100">
-
                     <% if (map.splash) { %>
-                        <img src="<%= map.splash %>" class="map-card-img">
+                        <img src="<%= map.splash %>" class="map-card-img" alt="<%= map.displayName %>">
                     <% } %>
 
                     <div class="map-card-overlay"></div>
 
                     <div class="map-card-content">
-                        <h3 class="text-uppercase fw-bold">
+                        <h3 class="text-uppercase m-0">
                             <%= map.displayName %>
                         </h3>
 
-                        <p class="text-secondary mb-1">
+                        <p class="small my-1">
                             <%= map.tacticalDescription %>
                         </p>
-                                                <% if (map.coordinates) { %>
-                            <small class="text-secondary opacity-50">
+                        
+                        <% if (map.coordinates) { %>
+                            <small class="map-coords">
                                 <%= map.coordinates %>
                             </small>
                         <% } %>
                     </div>
-
                 </div>
-
             </div>
         <% }) %>
-
     </div>
 
-    <!-- 👇 Toggle Button -->
-    <div class="text-center mb-4">
-        <button id="toggleMapsBtn" class="btn btn-outline-danger">
+    <div class="text-center mb-5">
+        <button id="toggleMapsBtn" class="btn btn-valo">
             Show More Maps
         </button>
     </div>
 
-    <!-- 📦 Hidden Maps -->
     <div id="extraMaps" class="row g-4 d-none">
-
         <% otherMaps.forEach(map => { %>
             <div class="col-12 col-md-6 col-lg-4 d-flex">
-
                 <div class="map-card w-100">
-
                     <% if (map.splash) { %>
-                        <img src="<%= map.splash %>" class="map-card-img">
+                        <img src="<%= map.splash %>" class="map-card-img" alt="<%= map.displayName %>">
                     <% } %>
 
                     <div class="map-card-overlay"></div>
 
                     <div class="map-card-content">
-                        <h3 class="text-uppercase fw-bold">
+                        <h3 class="text-uppercase m-0">
                             <%= map.displayName %>
                         </h3>
-
-                        <!-- <p class="text-secondary">
-                            No tactical overview available
-                        </p> -->
+                        <small class="map-coords">Standard Arena</small>
                     </div>
-
                 </div>
-
             </div>
         <% }) %>
-
     </div>
 
 </div>
 
-<!-- JS Toggle -->
 <script>
 document.getElementById("toggleMapsBtn").addEventListener("click", function () {
     const extraMaps = document.getElementById("extraMaps");
-
     extraMaps.classList.toggle("d-none");
-
+    
     this.textContent = extraMaps.classList.contains("d-none")
         ? "Show More Maps"
         : "Show Less Maps";

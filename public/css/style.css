@@ -747,50 +747,133 @@ body {
   margin-top: 15px;
 }
 
+/* SECTION TIMINGS TITLE DECORATION */
+.section-title-valo {
+  font-weight: 800;
+  letter-spacing: 1px;
+  border-left: 4px solid var(--valo-red);
+  padding-left: 12px;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+}
+
+/* THE MAP CARD */
 .map-card {
   position: relative;
-  height: 240px;
-  border-radius: 16px;
+  height: 250px;
+  background: var(--valo-dark);
+  /* Sharp angular cut at the bottom-right corner */
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
   cursor: pointer;
-  border: 1px solid rgba(255,255,255,0.08);
-  transition: 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .map-card:hover {
   transform: translateY(-6px);
-  border-color: #ff4655;
-  box-shadow: 0 10px 30px rgba(255,70,85,0.2);
+  border-color: var(--valo-red);
+  box-shadow: 0 12px 25px rgba(255, 70, 85, 0.2);
 }
 
+/* Slide-out red line strip at card base */
+.map-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background-color: var(--valo-red);
+  transition: width 0.3s ease;
+  z-index: 3;
+}
+
+.map-card:hover::after {
+  width: 100%;
+}
+
+/* BACKDROP SPLASH IMAGE (Static, Completely Flush, No Zoom) */
 .map-card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.75);
-  transition: 0.4s ease;
+  display: block;
+  filter: brightness(0.55) contrast(1.05);
+  transition: filter 0.4s ease;
 }
 
+/* Hover effect modifies color brightness depth rather than size zoom scale */
 .map-card:hover .map-card-img {
-  transform: scale(1.05);
+  filter: brightness(0.75) contrast(1.1);
 }
 
+/* GRADIENT TEXT PROTECTION MATRIX */
 .map-card-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(0,0,0,0.85),
-    rgba(0,0,0,0.2)
+    rgba(15, 25, 35, 0.95) 0%,
+    rgba(15, 25, 35, 0.5) 50%,
+    transparent 100-%;
   );
+  z-index: 1;
 }
 
+/* CARD INSIDE INFOHOLDER */
 .map-card-content {
   position: absolute;
-  bottom: 15px;
-  left: 15px;
-  right: 15px;
-  color: white;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  z-index: 2;
+}
+
+.map-card-content h3 {
+  color: var(--valo-light);
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.map-card-content p {
+  color: var(--valo-grey);
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.map-coords {
+  color: var(--valo-red);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.9;
+}
+
+/* TACTICAL VALORANT INTERFACE ACTION BUTTON */
+.btn-valo {
+  background: transparent;
+  color: var(--valo-light);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 12px 32px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 12px;
+  position: relative;
+  /* Dual opposing diagonal corner design cuts */
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  transition: all 0.25s ease;
+}
+
+.btn-valo:hover {
+  background: var(--valo-red);
+  color: var(--valo-dark);
+  border-color: var(--valo-red);
+  box-shadow: 0 0 20px rgba(255, 70, 85, 0.35);
 }
 
 /* WEAPON CARD */
