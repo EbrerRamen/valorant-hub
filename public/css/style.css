@@ -950,6 +950,60 @@ body {
   backdrop-filter: blur(6px);
 }
 
+.sort-label {
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.weapons-count-badge {
+  background: rgba(255, 70, 85, 0.12);
+  border: 1px solid rgba(255, 70, 85, 0.3);
+  color: #ff4655;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 4px;
+}
+
+.sort-controls {
+  gap: 6px;
+}
+
+.sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  color: var(--valo-grey);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 7px 14px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.sort-btn:hover {
+  color: var(--valo-light);
+  border-color: rgba(255, 70, 85, 0.4);
+  background: rgba(255, 70, 85, 0.08);
+}
+
+.sort-btn.active {
+  background: var(--valo-red);
+  color: #fff;
+  border-color: var(--valo-red);
+  box-shadow: 0 0 14px rgba(255, 70, 85, 0.35);
+}
+
 /* WEAPON CARD */
 .weapon-card {
   background: var(--valo-dark);

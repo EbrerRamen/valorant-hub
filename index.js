@@ -103,36 +103,21 @@ app.get("/maps", async (req, res) => {
 });
 
 app.get("/weapons", async (req, res) => {
-  try {
-    const result = await axios.get(API_URL + "weapons");
-
-    let weapons = result.data.data.filter(
-      (w) => w.weaponStats && w.displayIcon
-    );
-
-    // Get sort type from query (?sort=low or ?sort=high)
-    const sortType = req.query.sort;
-
-    if (sortType === "low") {
-      weapons.sort(
-        (a, b) => (a.shopData?.cost || 0) - (b.shopData?.cost || 0)
-      );
-    } else if (sortType === "high") {
-      weapons.sort(
-        (a, b) => (b.shopData?.cost || 0) - (a.shopData?.cost || 0)
-      );
+    try {
+        const result = await axios.get(API_URL + "weapons");
+        const weapons = result.data.data.filter(
+            w => w.weaponStats && w.displayIcon
+        );
+        res.render("weapons.ejs", {
+            weapons,
+            currentPath: "/weapons",
+        })
+    } catch (error) {
+        console.log(error.message);
+        res.send("Error loading agents");
     }
 
-    res.render("weapons.ejs", {
-      weapons,
-      currentPath: "/weapons",
-      sortType,
-    });
-  } catch (error) {
-    console.log(error.message);
-    res.send("Error loading weapons");
-  }
-});
+})
 
 
 app.listen(port, () => {
