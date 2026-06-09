@@ -15,9 +15,18 @@
         </p>
     </div>
 
+    <!-- Category Filter Bar -->
+    <div class="category-filter-bar mb-3">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <% const categories = [...new Set(weapons.map(w => w.shopData?.category).filter(Boolean))]; %>
+        <% categories.forEach(cat => { %>
+            <button class="filter-btn" data-filter="<%= cat %>"><%= cat %></button>
+        <% }) %>
+    </div>
+
+    <!-- Sort Bar -->
     <div class="sort-bar d-flex justify-content-between align-items-center flex-wrap mb-4 px-2">
 
-        <!-- Left: result count -->
         <div class="mb-2 mb-md-0 d-flex align-items-center gap-3">
             <span class="text-secondary fw-semibold sort-label">
                 Sort by price:
@@ -25,7 +34,6 @@
             <span class="weapons-count-badge" id="weaponCount"></span>
         </div>
 
-        <!-- Right: Sort buttons -->
         <div class="sort-controls d-flex align-items-center gap-2">
             <button class="sort-btn" id="sortDefault" onclick="sortWeapons('default')" title="Default order">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
@@ -55,6 +63,7 @@
 
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex weapon-item"
                  data-cost="<%= weapon.shopData ? weapon.shopData.cost : 0 %>"
+                 data-category="<%= weapon.shopData ? weapon.shopData.category : '' %>"
                  data-index="<%= index %>">
 
                 <div class="weapon-card w-100">
@@ -94,68 +103,105 @@
 </div>
 
 <script>
-    // Store original DOM order
     const grid = document.getElementById('weaponsGrid');
     const allItems = Array.from(grid.querySelectorAll('.weapon-item'));
     const originalOrder = [...allItems];
-    let currentSort = 'default';
 
-    function updateCount() {
-        const count = allItems.length;
-        const badge = document.getElementById('weaponCount');
-        badge.textContent = count + ' weapons';
+    let currentSort = 'default';
+    let currentFilter = 'all';
+
+    // ── Helpers ──────────────────────────────────────────────────────────────
+
+    function getVisibleItems() {
+        return originalOrder.filter(item =>
+            currentFilter === 'all' || item.dataset.category === currentFilter
+        );
     }
 
-    function setActiveBtn(id) {
+    function updateCount() {
+        const badge = document.getElementById('weaponCount');
+        const visible = getVisibleItems().length;
+        const total = allItems.length;
+        badge.textContent = currentFilter === 'all'
+            ? `${total} weapons`
+            : `${visible} / ${total} weapons`;
+    }
+
+    function setActiveSortBtn(id) {
         document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
         document.getElementById(id).classList.add('active');
     }
 
-    function animateSort(sortedItems) {
-        sortedItems.forEach((item, i) => {
+    function setActiveFilterBtn(filter) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector(`.filter-btn[data-filter="${filter}"]`).classList.add('active');
+    }
+
+    // ── Render ────────────────────────────────────────────────────────────────
+
+    function render() {
+        const visibleItems = getVisibleItems();
+
+        let sortedVisible = [...visibleItems];
+        if (currentSort === 'low') {
+            sortedVisible.sort((a, b) => parseInt(a.dataset.cost) - parseInt(b.dataset.cost));
+        } else if (currentSort === 'high') {
+            sortedVisible.sort((a, b) => parseInt(b.dataset.cost) - parseInt(a.dataset.cost));
+        }
+
+        // Build full ordered list: visible items in sorted order, hidden items after
+        const hiddenItems = originalOrder.filter(item => !visibleItems.includes(item));
+        const orderedAll = [...sortedVisible, ...hiddenItems];
+
+        // Re-append all items in order (fixes DOM position), hide non-visible ones
+        orderedAll.forEach(item => {
             item.style.transition = 'none';
             item.style.opacity = '0';
             item.style.transform = 'translateY(12px)';
+            item.style.display = visibleItems.includes(item) ? 'flex' : 'none';
             grid.appendChild(item);
         });
 
-        // Stagger fade-in
-        sortedItems.forEach((item, i) => {
+        // Stagger fade-in only on visible items
+        sortedVisible.forEach((item, i) => {
             setTimeout(() => {
                 item.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
                 item.style.opacity = '1';
                 item.style.transform = 'translateY(0)';
             }, i * 18);
         });
+
+        updateCount();
     }
+
+    // ── Sort ──────────────────────────────────────────────────────────────────
 
     function sortWeapons(type) {
         if (type === currentSort) return;
         currentSort = type;
 
-        let sorted;
+        if (type === 'low') setActiveSortBtn('sortLow');
+        else if (type === 'high') setActiveSortBtn('sortHigh');
+        else setActiveSortBtn('sortDefault');
 
-        if (type === 'low') {
-            sorted = [...allItems].sort((a, b) =>
-                parseInt(a.dataset.cost) - parseInt(b.dataset.cost)
-            );
-            setActiveBtn('sortLow');
-        } else if (type === 'high') {
-            sorted = [...allItems].sort((a, b) =>
-                parseInt(b.dataset.cost) - parseInt(a.dataset.cost)
-            );
-            setActiveBtn('sortHigh');
-        } else {
-            sorted = [...originalOrder];
-            setActiveBtn('sortDefault');
-        }
-
-        animateSort(sorted);
+        render();
     }
 
-    // Init
+    // ── Filter ────────────────────────────────────────────────────────────────
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.dataset.filter;
+            if (filter === currentFilter) return;
+            currentFilter = filter;
+            setActiveFilterBtn(filter);
+            render();
+        });
+    });
+
+    // ── Init ──────────────────────────────────────────────────────────────────
+    setActiveSortBtn('sortDefault');
     updateCount();
-    setActiveBtn('sortDefault');
 </script>
 
 <%- include('partials/footer') %>
