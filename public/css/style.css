@@ -10,88 +10,159 @@
 
 body {
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
+/* Navigation Bar */
+.navbar {
+  background-color: black !important;
+  border-bottom: 2px solid rgba(255, 70, 85, 0.5) !important;
+  padding: 15px 0;
+}
+
+.navbar-brand span {
+  letter-spacing: 2px;
+  color: var(--valo-light) !important;
+}
+
+.valo-nav-link {
+  color: var(--valo-light) !important;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+  margin-left: 20px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.valo-nav-link:hover {
+  color: var(--valo-red) !important;
+}
+
+/* Red indicator line on hover */
+.valo-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: var(--valo-red);
+  transition: width 0.3s ease;
+}
+
+.valo-nav-link:hover::after {
+  width: 100%;
+}
+
+.valo-nav-link.active {
+  color: #ff4655 !important;
+}
+
+.valo-nav-link.active::after {
+  width: 100% !important;
+}
+
+/* Hero Section */
 .hero {
   min-height: 90vh;
   display: flex;
   align-items: center;
-
-  /* background */
   background: url("/images/Valorant_CloseBeta_Final_design.jpg") no-repeat center center/cover;
-
   position: relative;
   padding: 60px 0;
 }
 
-/* dark + red gradient overlay (more modern than flat black) */
 .hero::before {
   content: "";
   position: absolute;
+  
   inset: 0;
-
   background: linear-gradient(
     90deg,
-    rgba(0,0,0,0.85) 30%,
-    rgba(255,70,85,0.15) 70%,
-    rgba(0,0,0,0.9) 100%
+    rgba(0, 0, 0, 0.80) 0%,
+    rgba(0, 0, 0, 0.6) 50%,
+    rgba(0, 0, 0, 0.30) 100%
   );
+  z-index: 1;
 }
 
-/* content wrapper */
 .hero-inner {
   position: relative;
   z-index: 2;
 }
 
-/* LEFT TEXT BLOCK */
 .hero-text {
-  max-width: 600px;
+  max-width: 650px;
 }
 
 .hero-title {
-  font-size: 4rem;
+  font-size: 4.5rem;
   font-weight: 900;
   letter-spacing: 2px;
-  color: white;
+  color: var(--valo-light);
+  line-height: 1.1;
+  text-transform: uppercase;
+  text-shadow: 0 0 30px rgba(255, 70, 85, 0.2);
 }
 
 .hero-title span {
-  color: #ff4655;
+  color: var(--valo-red);
 }
 
-/* description */
 .hero-desc {
   font-size: 1.2rem;
-  color: #d1d1d1;
-  margin-top: 15px;
+  color: var(--valo-grey);
+  margin-top: 20px;
   line-height: 1.6;
 }
 
-/* buttons spacing */
-.hero-actions {
-  margin-top: 25px;
+/* Tactical Buttons */
+.btn-valo-solid,
+.btn-valo-outline {
+  display: inline-block;
+  padding: 14px 36px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 14px;
+  text-decoration: none;
+  position: relative;
+  clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* optional subtle glow */
-.hero-title {
-  text-shadow: 0 0 20px rgba(255, 70, 85, 0.4);
+.btn-valo-solid {
+  background: var(--valo-red);
+  color: var(--valo-light);
+  border: 1px solid var(--valo-red);
 }
 
-/* dark overlay for readability */
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  height: 100%;
-  width: 100%;
-
-  background: rgba(0, 0, 0, 0.6);
+.btn-valo-solid:hover {
+  background: var(--valo-light);
+  color: var(--valo-red);
+  box-shadow: 0 0 25px rgba(255, 70, 85, 0.4);
 }
 
+.btn-valo-outline {
+  background: rgba(15, 25, 35, 0.6);
+  color: var(--valo-light);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+}
 
-/* content sits above overlay */
+.btn-valo-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--valo-light);
+}
+
 .content {
   position: relative;
   z-index: 2;
@@ -103,7 +174,6 @@ body {
   display: inline-block;
 }
 
-/* hidden by default */
 .role-tooltip {
   position: absolute;
   bottom: 60px;
@@ -129,7 +199,6 @@ body {
   z-index: 10;
 }
 
-/* show on hover */
 .role-wrapper:hover .role-tooltip {
   opacity: 1;
   visibility: visible;
@@ -221,7 +290,6 @@ body {
   box-shadow: 0 0 20px rgba(255, 70, 85, 0.25);
 }
 
-/* FULL PORTRAIT STYLE */
 .agent-portrait {
   width: 100%;
   height: 220px;
@@ -853,7 +921,6 @@ body {
   opacity: 0.9;
 }
 
-/* TACTICAL VALORANT INTERFACE ACTION BUTTON */
 .btn-valo {
   background: transparent;
   color: var(--valo-light);
@@ -864,7 +931,6 @@ body {
   text-transform: uppercase;
   font-size: 12px;
   position: relative;
-  /* Dual opposing diagonal corner design cuts */
   clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
   transition: all 0.25s ease;
 }
@@ -878,9 +944,7 @@ body {
 
 /* WEAPON CARD */
 .weapon-card {
-  /* Using the specific Valorant dark theme color */
   background: var(--valo-dark);
-  /* The classic Valorant cut-corner effect on the bottom right */
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -888,14 +952,13 @@ body {
   height: 100%;
 }
 
-/* Hover State - Glow and Lift */
+
 .weapon-card:hover {
   transform: translateY(-8px);
   border-color: var(--valo-red);
   box-shadow: 0 15px 30px rgba(255, 70, 85, 0.15);
 }
 
-/* Optional: Adds a sleek red line at the bottom on hover */
 .weapon-card::after {
   content: '';
   position: absolute;
@@ -923,8 +986,8 @@ body {
   position: absolute;
   top: 12px;
   left: 12px;
-  background: rgba(15, 25, 35, 0.85); /* Semi-transparent Valo dark */
-  border-left: 3px solid var(--valo-red); /* Sharp left accent */
+  background: rgba(15, 25, 35, 0.85); 
+  border-left: 3px solid var(--valo-red); 
   color: var(--valo-light);
   font-size: 10px;
   font-weight: 700;
@@ -937,7 +1000,7 @@ body {
 
 /* IMAGE CONTAINER */
 .weapon-img-container {
-  height: 180px; /* Slightly taller for long rifles */
+  height: 180px; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -950,12 +1013,12 @@ body {
   width: 100%;
   max-height: 120px;
   object-fit: contain;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy transition */
-  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5)); /* Makes the gun pop off the background */
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5)); 
 }
 
 .weapon-card:hover img {
-  transform: scale(1.15) rotate(-2deg); /* Slight tilt for dynamism */
+  transform: scale(1.15);
 }
 
 /* INFO SECTION */
@@ -978,19 +1041,27 @@ body {
   font-size: 0.9rem;
   letter-spacing: 1px;
 }
+/* Footer */
+.footer {
+  background-color: black !important;
+  border-top: 2px solid var(--valo-red) !important;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+}
+
 .footer-link {
-  color: #aaa;
+  color: var(--valo-grey);
   text-decoration: none;
-  display: block;
-  margin-bottom: 6px;
+  display: inline-block;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 1px;
   transition: 0.2s ease;
 }
 
 .footer-link:hover {
-  color: #ff4655;
-  padding-left: 4px;
-}
-
-footer {
-  margin-top: auto;
+  color: var(--valo-red);
+  transform: translateX(5px);
 }

@@ -1,20 +1,17 @@
-<footer class="footer mt-auto py-4 border-top border-danger bg-black text-light">
-
+<footer class="footer mt-auto bg-black">
   <div class="container">
 
     <div class="row">
 
-      <!-- Brand Section -->
-      <div class="col-md-4 mb-3">
-        <h5 class="text-danger fw-bold">VALORANT HUB</h5>
-        <p class="small text-secondary">
+      <div class="col-md-4 mb-4 mb-md-0">
+        <h5 class="fw-bold mb-3" style="color: var(--valo-red); letter-spacing: 2px;">VALORANT HUB</h5>
+        <p class="small" style="color: var(--valo-grey);">
           Your ultimate companion for exploring agents, maps, weapons, and game modes. Built for Valorant players who want fast and clean information.
         </p>
       </div>
 
-      <!-- Quick Links -->
-      <div class="col-md-4 mb-3">
-        <h6 class="text-light">Quick Links</h6>
+      <div class="col-md-4 mb-4 mb-md-0">
+        <h6 class="text-light text-uppercase fw-bold mb-3" style="letter-spacing: 1px;">Quick Links</h6>
         <ul class="list-unstyled">
           <li><a href="/agents" class="footer-link">Agents</a></li>
           <li><a href="/maps" class="footer-link">Maps</a></li>
@@ -23,15 +20,14 @@
         </ul>
       </div>
 
-      <!-- Tech Info -->
       <div class="col-md-4 mb-3">
-        <h6 class="text-light">Built With</h6>
-        <p class="small text-secondary">
+        <h6 class="text-light text-uppercase fw-bold mb-3" style="letter-spacing: 1px;">Built With</h6>
+        <p class="small" style="color: var(--valo-grey);">
           Node.js • Express • EJS • Bootstrap
         </p>
 
-        <p class="small text-secondary mt-3">
-          © <%= new Date().getFullYear() %> Valorant Hub
+        <p class="small mt-4 pt-3 border-top" style="border-color: rgba(255,255,255,0.1) !important; color: var(--valo-grey);">
+          © <%= new Date().getFullYear() %> Project Valorant Hub
         </p>
       </div>
 
@@ -40,7 +36,6 @@
   </div>
 </footer>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

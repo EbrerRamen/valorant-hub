@@ -10,6 +10,7 @@ app.use(express.static("public"));
 app.get("/", (req, res) => {
     res.render("index.ejs", {
         title: "Valorant Hub",
+        currentPath: "/",
         description:
             "Your ultimate Valorant companion — explore agents, maps, weapons, and game modes. Built for players who want faster info and smarter gameplay."
     })
@@ -23,7 +24,8 @@ app.get("/agents", async (req, res) => {
         );
 
         res.render("agents.ejs", {
-            agents
+            agents,
+            currentPath: "/agents",
         })
     } catch (error) {
         console.log(error.message);
@@ -39,7 +41,8 @@ app.get("/agents/:uuid", async (req, res) => {
         const agent = result.data.data;
 
         res.render("agent-details.ejs", {
-            agent
+            agent,
+            currentPath: "/agents",
         });
     } catch (error) {
         console.log(error.message);
@@ -59,7 +62,8 @@ app.get("/gamemodes", async (req, res) => {
         });
 
         res.render("gamemodes.ejs", {
-            gamemodes
+            gamemodes,
+            currentPath: "/gamemodes",
         });
 
     } catch (err) {
@@ -88,7 +92,8 @@ app.get("/maps", async (req, res) => {
 
         res.render("maps.ejs", {
             featuredMaps,
-            otherMaps
+            otherMaps,
+            currentPath: "/maps",
         });
 
     } catch (err) {
@@ -104,7 +109,8 @@ app.get("/weapons", async (req, res) => {
             w => w.weaponStats && w.displayIcon
         );
         res.render("weapons.ejs", {
-            weapons
+            weapons,
+            currentPath: "/weapons",
         })
     } catch (error) {
         console.log(error.message);
