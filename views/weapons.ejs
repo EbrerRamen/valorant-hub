@@ -2,58 +2,51 @@
 
 <div class="container my-5">
 
-    <!-- Header -->
     <div class="text-center mb-5 agents-header">
-        <span class="agents-subtitle text-uppercase text-danger fw-bold">
+        <span class="agents-subtitle text-uppercase fw-bold" style="color: #ff4655; letter-spacing: 2px;">
             Arsenal
         </span>
-        <h1 class="text-white text-uppercase display-4 fw-black mt-2">
+        <h1 class="text-white text-uppercase display-4 mt-2" style="font-weight: 900; letter-spacing: 1px;">
             Valorant Weapons
         </h1>
-        <div class="agents-header-line"></div>
+        <div class="agents-header-line mx-auto my-3" style="width: 60px; height: 3px; background-color: #ff4655;"></div>
         <p class="text-secondary col-md-8 mx-auto mt-3 fs-5">
             Choose your weapon. Compare cost, category, and find your perfect loadout.
         </p>
     </div>
 
-    <!-- Weapons Grid -->
     <div class="row g-4 justify-content-center">
 
         <% weapons.forEach(weapon => { %>
 
-            <div class="col-6 col-md-4 col-lg-3 d-flex">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
 
                 <div class="weapon-card w-100">
-
                     <div class="weapon-card-inner">
 
-                        <!-- Category Badge -->
                         <% if (weapon.shopData) { %>
                             <div class="weapon-category">
                                 <%= weapon.shopData.categoryText %>
                             </div>
                         <% } %>
 
-                        <!-- Weapon Image -->
                         <div class="weapon-img-container">
                             <img src="<%= weapon.displayIcon %>" alt="<%= weapon.displayName %>">
                         </div>
 
-                        <!-- Info -->
-                        <div class="weapon-info text-center p-3">
-                            <h4 class="text-white fw-bold m-0">
+                        <div class="weapon-info d-flex justify-content-between align-items-center w-100">
+                            <h4 class="fw-bold m-0 text-uppercase">
                                 <%= weapon.displayName %>
                             </h4>
 
                             <% if (weapon.shopData) { %>
-                                <span class="text-danger fw-semibold">
+                                <span class="fw-semibold" style="color: #ff4655;">
                                     <%= weapon.shopData.cost %> credits
                                 </span>
                             <% } %>
                         </div>
 
                     </div>
-
                 </div>
 
             </div>
