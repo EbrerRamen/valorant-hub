@@ -119,6 +119,22 @@ app.get("/weapons", async (req, res) => {
 
 })
 
+app.get("/weapons/:uuid", async (req, res) => {
+  try {
+    const { uuid } = req.params;
+    const result = await axios.get(API_URL + "weapons/" + uuid);
+    const weapon = result.data.data;
+ 
+    res.render("weapon-details.ejs", {
+      weapon,
+      currentPath: "/weapons",
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(404).send("Weapon not found or API error");
+  }
+});
+
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);

@@ -1,0 +1,188 @@
+<%- include('partials/header') %>
+
+<div class="container my-5">
+
+    <a href="/weapons" class="wd-back-btn mb-4 d-inline-flex align-items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+        </svg>
+        Return to Arsenal
+    </a>
+
+    <div class="row align-items-center mb-5 pb-4 border-bottom" style="border-color: rgba(255,255,255,0.05) !important;">
+        <div class="col-lg-7 text-center">
+            <div class="wd-hero-img-wrap w-100">
+                <img src="<%= weapon.displayIcon %>" alt="<%= weapon.displayName %>" class="wd-hero-img">
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <% if (weapon.shopData) { %>
+                <span class="wd-category-badge mb-3">
+                    <%= weapon.shopData.categoryText %>
+                </span>
+            <% } %>
+            
+            <h1 class="text-white text-uppercase fw-black mt-2 mb-3" style="font-size: 4rem; letter-spacing: 2px; line-height: 1;">
+                <%= weapon.displayName %>
+            </h1>
+            
+            <% if (weapon.shopData) { %>
+                <div class="wd-cost-display mb-4">
+                    <span class="wd-cost-value"><%= weapon.shopData.cost %></span>
+                    <span class="wd-cost-label">CREDITS</span>
+                </div>
+            <% } %>
+
+            <div class="row g-3 mt-2">
+                <div class="col-6">
+                    <div class="wd-quick-stat">
+                        <span class="wd-qs-label">Fire Rate</span>
+                        <span class="wd-qs-value"><%= weapon.weaponStats.fireRate %> / sec</span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="wd-quick-stat">
+                        <span class="wd-qs-label">Magazine</span>
+                        <span class="wd-qs-value"><%= weapon.weaponStats.magazineSize %></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="wd-quick-stat">
+                        <span class="wd-qs-label">Reload Time</span>
+                        <span class="wd-qs-value"><%= weapon.weaponStats.reloadTimeSeconds %>s</span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="wd-quick-stat">
+                        <span class="wd-qs-label">Equip Time</span>
+                        <span class="wd-qs-value"><%= weapon.weaponStats.equipTimeSeconds %>s</span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="wd-quick-stat">
+                        <span class="wd-qs-label">Wall Penetration</span>
+                        <span class="wd-qs-value">
+                            <%= weapon.weaponStats.wallPenetration.replace('EWallPenetrationDisplayType::', '') %>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="wd-quick-stat">
+                        <span class="wd-qs-label">Run Speed</span>
+                        <span class="wd-qs-value"><%= (weapon.weaponStats.runSpeedMultiplier * 100).toFixed(0) %>%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <% if (weapon.weaponStats.damageRanges && weapon.weaponStats.damageRanges.length > 0) { %>
+    <div class="mb-5">
+        <h2 class="wd-section-title">Damage Profile</h2>
+        <div class="row g-4">
+            <% weapon.weaponStats.damageRanges.forEach((range) => { %>
+            <div class="col-md-6 col-lg-4 d-flex">
+                <div class="wd-damage-card w-100">
+                    <div class="wd-damage-range-label">
+                        <%= range.rangeStartMeters %>m — <%= range.rangeEndMeters %>m
+                    </div>
+                    <div class="row g-2 mt-auto">
+                        <div class="col-4">
+                            <div class="wd-dmg-box wd-dmg-head">
+                                <span class="wd-dmg-num"><%= range.headDamage.toFixed(0) %></span>
+                                <span class="wd-dmg-lbl">Head</span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="wd-dmg-box wd-dmg-body">
+                                <span class="wd-dmg-num"><%= range.bodyDamage.toFixed(0) %></span>
+                                <span class="wd-dmg-lbl">Body</span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="wd-dmg-box wd-dmg-leg">
+                                <span class="wd-dmg-num"><%= range.legDamage.toFixed(0) %></span>
+                                <span class="wd-dmg-lbl">Leg</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+    </div>
+    <% } %>
+
+    <% if (weapon.weaponStats.adsStats) { %>
+    <div class="mb-5">
+        <h2 class="wd-section-title">ADS Stats</h2>
+        <div class="row g-3">
+            <div class="col-6 col-md-3">
+                <div class="wd-quick-stat">
+                    <span class="wd-qs-label">Zoom</span>
+                    <span class="wd-qs-value"><%= weapon.weaponStats.adsStats.zoomMultiplier %>x</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="wd-quick-stat">
+                    <span class="wd-qs-label">Fire Rate</span>
+                    <span class="wd-qs-value"><%= weapon.weaponStats.adsStats.fireRate %> / sec</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="wd-quick-stat">
+                    <span class="wd-qs-label">Run Speed</span>
+                    <span class="wd-qs-value"><%= (weapon.weaponStats.adsStats.runSpeedMultiplier * 100).toFixed(0) %>%</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="wd-quick-stat">
+                    <span class="wd-qs-label">1st Bullet Acc.</span>
+                    <span class="wd-qs-value"><%= weapon.weaponStats.adsStats.firstBulletAccuracy %></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% } %>
+
+    <% if (weapon.skins && weapon.skins.length > 0) { %>
+        <% const displaySkins = weapon.skins.filter(s => s.displayIcon && s.displayName !== "Random Favorite Skin" && s.displayName !== "Standard " + weapon.displayName); %>
+        <% if (displaySkins.length > 0) { %>
+        <div class="mb-5">
+            <h2 class="wd-section-title">
+                Arsenal Collection
+                <span class="wd-skins-count"><%= displaySkins.length %></span>
+            </h2>
+            <div class="row g-4">
+                <% displaySkins.forEach(skin => { %>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
+                    <div class="wd-skin-card w-100">
+                        <div class="wd-skin-img-wrap">
+                            <img src="<%= skin.displayIcon %>" alt="<%= skin.displayName %>">
+                        </div>
+                        
+                        <div class="wd-skin-info">
+                            <p class="wd-skin-name"><%= skin.displayName %></p>
+                            
+                            <% if (skin.chromas && skin.chromas.length > 1) { %>
+                                <div class="wd-chroma-dots">
+                                    <% skin.chromas.forEach(c => { %>
+                                        <% if (c.swatch) { %>
+                                            <img src="<%= c.swatch %>" class="wd-swatch" title="<%= c.displayName %>" alt="Chroma">
+                                        <% } %>
+                                    <% }) %>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+        </div>
+        <% } %>
+    <% } %>
+
+</div>
+
+<%- include('partials/footer') %>
