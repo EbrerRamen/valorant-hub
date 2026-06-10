@@ -122,11 +122,23 @@ app.get("/weapons", async (req, res) => {
 app.get("/weapons/:uuid", async (req, res) => {
   try {
     const { uuid } = req.params;
+    
     const result = await axios.get(API_URL + "weapons/" + uuid);
     const weapon = result.data.data;
  
+    let heroImage = weapon.displayIcon;
+
+    if (weapon.defaultSkinUuid && weapon.skins) {
+      const defaultSkin = weapon.skins.find(s => s.uuid === weapon.defaultSkinUuid);
+
+      if (defaultSkin && defaultSkin.chromas && defaultSkin.chromas.length > 0 && defaultSkin.chromas[0].fullRender) {
+        heroImage = defaultSkin.chromas[0].fullRender;
+      }
+    }
+
     res.render("weapon-details.ejs", {
       weapon,
+      heroImage, 
       currentPath: "/weapons",
     });
   } catch (error) {
