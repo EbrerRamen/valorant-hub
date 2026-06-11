@@ -147,6 +147,21 @@ app.get("/weapons/:uuid", async (req, res) => {
   }
 });
 
+app.get("/skins/:uuid", async (req, res) => {
+    try {
+        const { uuid } = req.params;
+        const result = await axios.get(`${API_URL}weapons/skins/${uuid}`);
+        const skin = result.data.data;
+
+        res.render("skin-details.ejs", {
+            skin,
+            currentPath: "/weapons"
+        });
+    } catch (error) {
+        console.log("Error fetching skin:", error.message);
+        res.status(404).send("Skin not found or API error");
+    }
+});
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);

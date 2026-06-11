@@ -1,0 +1,71 @@
+<%- include('partials/header') %>
+
+<div class="container my-5">
+    
+    <button onclick="history.back()" class="wd-back-btn btn btn-link p-0 mb-4 d-inline-flex align-items-center gap-2" style="text-decoration: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+        </svg>
+        Back to Weapon
+    </button>
+
+    <div class="sd-hero text-center mb-5 pb-5 border-bottom" style="border-color: rgba(255,255,255,0.05) !important;">
+        <h1 class="text-white text-uppercase fw-black mb-4" style="font-size: 3.5rem; letter-spacing: 2px;">
+            <%= skin.displayName %>
+        </h1>
+        <div class="sd-hero-img-wrap">
+            <img src="<%= skin.chromas?.[0]?.fullRender || skin.displayIcon %>" alt="<%= skin.displayName %>" class="sd-hero-img" fetchpriority="high">
+        </div>
+    </div>
+
+    <% if (skin.chromas && skin.chromas.length > 1) { %>
+        <div class="mb-5">
+            <h2 class="wd-section-title">Color Variants</h2>
+            <div class="row g-4">
+                <% skin.chromas.forEach(chroma => { %>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="sd-card">
+                            <div class="sd-card-img-wrap">
+                                <img src="<%= chroma.fullRender || chroma.displayIcon %>" alt="<%= chroma.displayName %>">
+                            </div>
+                            <div class="sd-card-footer">
+                                <span><%= chroma.displayName.replace(skin.displayName, '').trim() || 'Base Variant' %></span>
+                                <% if (chroma.swatch) { %>
+                                    <img src="<%= chroma.swatch %>" class="sd-swatch" alt="Swatch">
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    <% } %>
+
+    <% if (skin.levels && skin.levels.length > 1) { %>
+        <div class="mb-5">
+            <h2 class="wd-section-title">Evolution Upgrades</h2>
+            <div class="row g-4">
+                <% skin.levels.forEach((level, index) => { %>
+                    <div class="col-md-6">
+                        <div class="sd-card sd-video-card">
+                            <% if (level.streamedVideo) { %>
+                                <video src="<%= level.streamedVideo %>" autoplay loop muted playsinline class="sd-video"></video>
+                            <% } else { %>
+                                <div class="sd-card-img-wrap">
+                                    <img src="<%= level.displayIcon || skin.displayIcon %>" alt="Level Icon">
+                                </div>
+                            <% } %>
+                            <div class="sd-card-footer sd-level-footer">
+                                <span class="sd-level-badge">Level <%= index + 1 %></span>
+                                <span><%= level.levelItem ? level.levelItem.replace('ELevelItem::', '') : 'Base Weapon' %></span>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    <% } %>
+
+</div>
+
+<%- include('partials/footer') %>
