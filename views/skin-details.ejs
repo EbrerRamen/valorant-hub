@@ -49,7 +49,7 @@
                     <div class="col-md-6">
                         <div class="sd-card sd-video-card">
                             <% if (level.streamedVideo) { %>
-                                <video src="<%= level.streamedVideo %>" autoplay loop muted playsinline class="sd-video"></video>
+                                <video src="<%= level.streamedVideo %>" autoplay loop muted playsinline disableRemotePlayback x-webkit-airplay="deny" class="sd-video"></video>
                             <% } else { %>
                                 <div class="sd-card-img-wrap">
                                     <img src="<%= level.displayIcon || skin.displayIcon %>" alt="Level Icon">
