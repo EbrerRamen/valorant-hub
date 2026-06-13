@@ -41,40 +41,95 @@
         </div>
     <% } %>
 
-    <% if (skin.levels && skin.levels.length > 1) { %>
+<% if (skin.levels && skin.levels.length > 1) { %>
+        <% const selectedLevel = skin.levels.find(level => level.streamedVideo) || skin.levels[0]; %>
         <div class="mb-5">
-            <h2 class="wd-section-title">Evolution Upgrades</h2>
-            <div class="row g-4">
-                <% skin.levels.forEach((level, index) => { %>
-                    <div class="col-md-6">
-                        <div class="sd-card sd-video-card">
-                            <% if (level.streamedVideo) { %>
-                            <video src="<%= level.streamedVideo %>" 
-                                autoplay 
-                                loop 
-                                muted 
-                                playsinline 
-                                preload="none"
-                                controls
-                                disableRemotePlayback 
-                                class="sd-video">
-                            </video>
-                            <% } else { %>
-                                <div class="sd-card-img-wrap">
-                                    <img src="<%= level.displayIcon || skin.displayIcon %>" alt="Level Icon">
-                                </div>
-                            <% } %>
-                            <div class="sd-card-footer sd-level-footer">
-                                <span class="sd-level-badge">Level <%= index + 1 %></span>
-                                <span><%= level.levelItem ? level.levelItem.replace('EEquippableSkinLevelItem::', '') : 'Base Weapon' %></span>
-                            </div>
-                        </div>
+            <h2 class="wd-section-title text-center mb-4">Evolution Upgrades</h2>
+            
+            <div class="sd-level-viewer">
+                <div class="sd-level-media">
+                    <video
+                        src="<%= selectedLevel.streamedVideo || '' %>"
+                        autoplay
+                        loop
+                        muted
+                        playsinline
+                        controls
+                        preload="none"
+                        disableRemotePlayback
+                        class="sd-video <%= selectedLevel.streamedVideo ? '' : 'd-none' %>"
+                        id="sdLevelVideo">
+                    </video>
+                    
+                    <div class="sd-card-img-wrap <%= selectedLevel.streamedVideo ? 'd-none' : '' %>" id="sdLevelImageWrap">
+                        <img
+                            src="<%= selectedLevel.displayIcon || skin.displayIcon %>"
+                            alt="Level Icon"
+                            id="sdLevelImage">
                     </div>
+
+                    <div class="sd-hud-overlay">
+                        <span class="sd-level-badge" id="sdLevelBadge">Level <%= skin.levels.indexOf(selectedLevel) + 1 %></span>
+                        <span class="sd-level-title" id="sdLevelTitle"><%= selectedLevel.levelItem ? selectedLevel.levelItem.replace('EEquippableSkinLevelItem::', '') : 'Base Weapon' %></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sd-level-switcher" aria-label="Select weapon level">
+                <% skin.levels.forEach((level, index) => { %>
+                    <button
+                        type="button"
+                        class="sd-level-btn <%= level === selectedLevel ? 'active' : '' %>"
+                        data-level="<%= index + 1 %>"
+                        data-title="<%= level.levelItem ? level.levelItem.replace('EEquippableSkinLevelItem::', '') : 'Base Weapon' %>"
+                        data-video="<%= level.streamedVideo || '' %>"
+                        data-image="<%= level.displayIcon || skin.displayIcon %>">
+                        Level <%= index + 1 %>
+                    </button>
                 <% }) %>
             </div>
         </div>
     <% } %>
 
 </div>
+
+<script>
+    const levelVideo = document.getElementById('sdLevelVideo');
+    const levelImageWrap = document.getElementById('sdLevelImageWrap');
+    const levelImage = document.getElementById('sdLevelImage');
+    const levelBadge = document.getElementById('sdLevelBadge');
+    const levelTitle = document.getElementById('sdLevelTitle');
+    const levelButtons = document.querySelectorAll('.sd-level-btn');
+
+    levelButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            levelButtons.forEach((item) => item.classList.remove('active'));
+            button.classList.add('active');
+
+            levelBadge.textContent = `Level ${button.dataset.level}`;
+            levelTitle.textContent = button.dataset.title;
+
+            if (button.dataset.video) {
+                levelImageWrap.classList.add('d-none');
+                levelVideo.classList.remove('d-none');
+
+                if (levelVideo.getAttribute('src') !== button.dataset.video) {
+                    levelVideo.src = button.dataset.video;
+                    levelVideo.load();
+                }
+
+                levelVideo.play().catch(() => {});
+                return;
+            }
+
+            levelVideo.pause();
+            levelVideo.removeAttribute('src');
+            levelVideo.load();
+            levelVideo.classList.add('d-none');
+            levelImage.src = button.dataset.image;
+            levelImageWrap.classList.remove('d-none');
+        });
+    });
+</script>
 
 <%- include('partials/footer') %>
