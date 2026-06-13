@@ -18,6 +18,7 @@ All game data is fetched from the non-official API:
 ![Weapon Details](https://imgur.com/2ypwW60.png)
 ![Skins](https://imgur.com/uSKR6Bu.png)
 ![Skin Details](https://imgur.com/2ThlNA7.png)
+![Skin Level Video](https://imgur.com/6nj1vYz.png)
 
 ---
 
