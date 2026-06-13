@@ -14,7 +14,7 @@
             <%= skin.displayName %>
         </h1>
         <div class="sd-hero-img-wrap">
-            <img src="<%= skin.chromas?.[0]?.fullRender || skin.displayIcon %>" alt="<%= skin.displayName %>" class="sd-hero-img" fetchpriority="high">
+            <img src="<%= skin.chromas?.[0]?.fullRender || skin.displayIcon %>" alt="<%= skin.displayName %>" class="sd-hero-img" id="sdHeroImage" fetchpriority="high">
         </div>
     </div>
 
@@ -22,9 +22,13 @@
         <div class="mb-5">
             <h2 class="wd-section-title">Color Variants</h2>
             <div class="row g-4">
-                <% skin.chromas.forEach(chroma => { %>
+                <% skin.chromas.forEach((chroma, index) => { %>
                     <div class="col-md-6 col-lg-4">
-                        <div class="sd-card">
+                        <button
+                            type="button"
+                            class="sd-card sd-chroma-card <%= index === 0 ? 'active' : '' %>"
+                            data-image="<%= chroma.fullRender || chroma.displayIcon || skin.displayIcon %>"
+                            data-name="<%= chroma.displayName %>">
                             <div class="sd-card-img-wrap">
                                 <img src="<%= chroma.fullRender || chroma.displayIcon %>" alt="<%= chroma.displayName %>">
                             </div>
@@ -34,7 +38,7 @@
                                     <img src="<%= chroma.swatch %>" class="sd-swatch" alt="Swatch">
                                 <% } %>
                             </div>
-                        </div>
+                        </button>
                     </div>
                 <% }) %>
             </div>
@@ -94,12 +98,24 @@
 </div>
 
 <script>
+    const heroImage = document.getElementById('sdHeroImage');
+    const chromaCards = document.querySelectorAll('.sd-chroma-card');
     const levelVideo = document.getElementById('sdLevelVideo');
     const levelImageWrap = document.getElementById('sdLevelImageWrap');
     const levelImage = document.getElementById('sdLevelImage');
     const levelBadge = document.getElementById('sdLevelBadge');
     const levelTitle = document.getElementById('sdLevelTitle');
     const levelButtons = document.querySelectorAll('.sd-level-btn');
+
+    chromaCards.forEach((card) => {
+        card.addEventListener('click', () => {
+            chromaCards.forEach((item) => item.classList.remove('active'));
+            card.classList.add('active');
+
+            heroImage.src = card.dataset.image;
+            heroImage.alt = card.dataset.name;
+        });
+    });
 
     levelButtons.forEach((button) => {
         button.addEventListener('click', () => {

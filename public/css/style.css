@@ -1454,6 +1454,19 @@ body {
   transform: translateY(-5px);
 }
 
+.sd-chroma-card {
+  width: 100%;
+  padding: 0;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sd-chroma-card.active {
+  border-color: var(--valo-red);
+  box-shadow: 0 0 0 1px rgba(255,70,85,0.35);
+}
+
 .sd-card-img-wrap {
   height: 180px;
   padding: 20px;
