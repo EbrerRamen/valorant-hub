@@ -72,6 +72,15 @@ All game data is fetched from the non-official API:
 
 ---
 
+### 🎨 Weapon Skins & Media Theater
+- Cinematic showcase for all weapon cosmetics.
+- Each skin profile includes a clean arsenal grid that filters out standard/placeholder skins.
+- Color Variants (Chromas) featuring interactive color swatches.
+- Evolution Upgrades (Levels) tracking VFX, animations, and Finisher upgrades.
+- Custom tactical media player with seamless looping video previews and hover-to-listen audio.
+
+---
+
 ## 🛠️ Tech Stack
 
 - **Frontend**
