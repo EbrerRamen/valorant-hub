@@ -64,6 +64,14 @@ All game data is fetched from the non-official API:
 
 ---
 
+### 🔫 Weapon Details
+- Deep-dive tactical dashboard for every weapon.
+- Each weapon profile includes a high-quality 3D rendered hero image of the Default Skin.
+- Granular Damage Profile highlighting Head, Body, and Leg damage across specific distances.
+- Dedicated ADS (Aim Down Sights) metrics covering Zoom multiplier, fire rate, run speed, and 1st bullet accuracy.
+
+---
+
 ## 🛠️ Tech Stack
 
 - **Frontend**
