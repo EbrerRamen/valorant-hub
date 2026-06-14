@@ -19,6 +19,7 @@ All game data is fetched from the non-official API:
 ![Skins](https://imgur.com/uSKR6Bu.png)
 ![Skin Details](https://imgur.com/2ThlNA7.png)
 ![Skin Level Video](https://imgur.com/6nj1vYz.png)
+![Bundles](https://imgur.com/UVrHvzT.png)
 
 ---
 
