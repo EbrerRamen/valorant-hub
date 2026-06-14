@@ -1,0 +1,36 @@
+<%- include('partials/header') %>
+
+    <div class="container my-5">
+        <div class="text-center mb-5 bundles-header">
+            <span class="bundles-subtitle text-uppercase fw-bold" style="color: var(--valo-red); letter-spacing: 2px;">
+                Store Collections
+            </span>
+            <h1 class="text-white text-uppercase display-4 mt-2" style="font-weight: 900; letter-spacing: 1px;">
+                Featured Bundles
+            </h1>
+            <div class="bundles-header-line mx-auto my-3"
+                style="width: 60px; height: 3px; background-color: var(--valo-red);"></div>
+            <p class="text-secondary col-md-8 mx-auto mt-3 fs-5">
+                Explore exclusive weapon skin collections and premium cosmetics
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <% bundles.forEach(bundle=> { %>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="bundle-card">
+                        <div class="bundle-img-wrap">
+                            <img src="<%= bundle.displayIcon %>" alt="<%= bundle.displayName %>" loading="lazy">
+                        </div>
+                        <div class="bundle-info">
+                            <h3 class="bundle-title">
+                                <%= bundle.displayName %>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>

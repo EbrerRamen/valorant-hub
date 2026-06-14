@@ -163,6 +163,23 @@ app.get("/skins/:uuid", async (req, res) => {
     }
 });
 
+app.get("/bundles", async (req, res) => {
+    try {
+        const result = await axios.get(API_URL + "bundles");
+        
+        // Filter out bundles that don't have a display icon to keep the grid clean
+        const bundles = result.data.data.filter(bundle => bundle.displayIcon);
+
+        res.render("bundles.ejs", {
+            bundles,
+            currentPath: "/bundles" // Used for your active navbar state!
+        });
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send("Error loading bundles");
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 })
